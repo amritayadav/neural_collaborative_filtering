@@ -15,14 +15,15 @@ I have updated the code to the latest Python version: Python 3.9.21.
 You can create a Python environment using:
 ```
 python3.9 -m venv env_name
-
 ```
 The Updates utilizes Keras and TensorFlow with Theano as the backend:
+
 - keras==3.8.0
 - tensorflow==2.18.0
 - Theano-PyMC==1.1.2
 
 To install the required dependencies, run:
+
 ```
 pip install -r requirements.txt
 ```
