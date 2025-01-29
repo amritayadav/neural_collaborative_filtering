@@ -172,7 +172,12 @@ if __name__ == '__main__':
     topK = 10
     evaluation_threads = 1#mp.cpu_count()
     print("NeuMF arguments: %s " %(args))
-    model_out_file = 'Pretrain/%s_NeuMF_%d_%s_%d.weights.h5' %(args.dataset, mf_dim, args.layers, time())
+
+    # # When saving only the model weights, use:
+    # model_out_file = 'Pretrain/%s_NeuMF_%d_%s_%d.weights.h5' %(args.dataset, mf_dim, args.layers, time())
+    
+    # If you want to save the full model (architecture + weights)
+    model_out_file = 'Pretrain/%s_NeuMF_%d_%s_%d.h5' %(args.dataset, mf_dim, args.layers, time())
 
     # Loading data
     t1 = time()
@@ -208,7 +213,14 @@ if __name__ == '__main__':
     print('Init: HR = %.4f, NDCG = %.4f' % (hr, ndcg))
     best_hr, best_ndcg, best_iter = hr, ndcg, -1
     if args.out > 0:
-        model.save_weights(model_out_file, overwrite=True) 
+        # # When saving only the model weights, use:
+
+        # model.save_weights(model_out_file, overwrite=True)
+
+        # If you want to save the full model (architecture + weights)
+        model.save(model_out_file)
+
+
         
     # Training model
     for epoch in range(num_epochs):
@@ -231,7 +243,12 @@ if __name__ == '__main__':
             if hr > best_hr:
                 best_hr, best_ndcg, best_iter = hr, ndcg, epoch
                 if args.out > 0:
-                    model.save_weights(model_out_file, overwrite=True)
+                    ## When saving only the model weights, use:
+        
+                    # model.save_weights(model_out_file, overwrite=True)
+
+                    # If you want to save the full model (architecture + weights)
+                    model.save(model_out_file)
 
     print("End. Best Iteration %d:  HR = %.4f, NDCG = %.4f. " %(best_iter, best_hr, best_ndcg))
     if args.out > 0:
